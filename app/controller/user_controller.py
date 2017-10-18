@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flask import Blueprint, request, make_response
+from flask import Blueprint, request, make_response, jsonify
 from app.model.user_info import UserInfo
 import app.service.user_service as user_service
 import json
@@ -29,14 +29,10 @@ def register():
     rsp = response_headers('register')
 
     if status:
-        rsp.mimetype = 'text/json'
-        rsp.data = "注册成功"
-        return rsp
+        # rsp.mimetype = 'text/json'
+        return jsonify({"msg_info": "注册成功", "register_type": True})
     else:
-        rsp.mimetype = 'text/json'
-        rsp.data = "注册失败, 用户已存在"
-        return rsp
-
+        return jsonify({"msg_info": "注册成功", "register_type": True})
 
 
 

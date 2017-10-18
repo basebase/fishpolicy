@@ -10,13 +10,13 @@ def get_dev_connection(config):
     conn = mysql.connector.Connect(**config)
     return conn
 
-def execute_sql(sql, params = None):
+def execute_sql(run_sql_component, sql, params = None):
     try:
         conn = get_dev_connection(mysql_dev_config)
         save_cursor = conn.cursor()
         sql = Template(sql).substitute(params)
 
-        print "Run SQL => " + sql
+        print run_sql_component + " Run SQL => " + sql
 
         save_cursor.execute(sql)
         conn.commit()
