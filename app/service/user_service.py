@@ -8,3 +8,7 @@ def save_user_info(user_info):
     '保存注册用户'
     status = user_dao.save_user_info(user_info)
     return status
+
+def login_user_info(user_info):
+    user = user_dao.login_user_info(user_info)
+    return user

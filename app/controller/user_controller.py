@@ -11,6 +11,7 @@ uc = Blueprint('user_controller', __name__)
 def response_headers(content):
     resp = make_response(content)
     resp.headers['Access-Control-Allow-Origin'] = '*'
+    resp.mimetype = 'application/json'
     return resp
 
 @uc.route('/register', methods=["POST", "GET"])
@@ -38,13 +39,12 @@ def register():
 
 @uc.route('/login')
 def login():
-    # params = request.args.get('uid', 'username', 'age','sex', 'status')
-    params = request.args
+    params = json.loads(request.data)  # 获取到用户输入的全部参数
     user = UserInfo(**params)
-    print user
-    print request.args
-    print params
-    rsp = make_response('login')
-    rsp.mimetype = 'text/json'
-    rsp.data = "11111"
-    return rsp
+    user_df = user_service.login_user_info(user)
+
+    print user_df
+
+    data = user_df['username']
+
+    return jsonify({"msg_info": "登录成功", "login_type": True, "username": data})

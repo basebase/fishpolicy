@@ -26,8 +26,9 @@ def execute_sql(run_sql_component, sql, params = None):
         print ex
         return False
 
-def query_sql(sql, params = None):
+def query_sql(run_sql_component, sql, params = None):
     conn = get_dev_connection(mysql_dev_config)
     sql = Template(sql).substitute(params)
+    print run_sql_component + " Run SQL => " + sql
     df = pd.read_sql(sql, conn)
     return df
